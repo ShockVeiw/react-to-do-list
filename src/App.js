@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Header from './components/Header.jsx';
+import NavBar from './components/NavBar.jsx';
+import Tasks from './components/Todos.jsx';
+import AddTasks from './components/AddTodos.jsx';
 
 function App() {
+  const [state, setState] = React.useState(JSON.parse(localStorage.getItem('todos')));
+  const firstRender = React.useRef(true);
+
+  React.useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+
+    localStorage.setItem('todos', JSON.stringify(state));
+  }, [state]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <NavBar />
+      <Route exact path="/">
+        <Tasks todos={state} setTodos={setState} />
+      </Route>
+      <Route exact path="/add-todos">
+        <AddTasks todos={state} setTodos={setState} />
+      </Route>
+    </BrowserRouter>
   );
 }
 

@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+## The simple to do list application using:
+- React, React Hooks
+- SASS (SCSS)
+- BEM
+- localStorage
+
+***
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
